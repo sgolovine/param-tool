@@ -1,4 +1,5 @@
 import omit from "ramda/src/omit";
+import uuid from "uuid/v1";
 
 export const initialState = {
   baseURL: "",
@@ -20,14 +21,19 @@ export const setPort = port => {
   };
 };
 
-export const addParam = ({ guid, paramName, paramValue }) => {
+export const addParam = () => {
+  const payload = {
+    guid: uuid(),
+    paramName: "",
+    paramValue: ""
+  };
   return {
     type: "SET_PARAM",
-    payload: { guid, paramName, paramValue }
+    payload
   };
 };
 
-export const removeParam = ({ guid }) => {
+export const removeParam = guid => {
   return {
     type: "REMOVE_PARAM",
     payload: guid
@@ -66,13 +72,17 @@ export function reducer(state = initialState, action = {}) {
         params: {
           ...state.params,
           [action.payload.guid]: {
-            key: action.payload.paramName,
-            value: action.payload.paramValue
+            paramName: action.payload.paramName,
+            paramValue: action.payload.paramValue
           }
         }
       };
-    case "REMOVE_PARAM":
-      return omit([action.payload], state);
+    case "REMOVE_PARAM": {
+      return {
+        ...state,
+        params: omit([action.payload], state.params)
+      };
+    }
     case "EDIT_PARAM_NAME":
       return {
         ...state,

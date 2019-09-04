@@ -8,21 +8,26 @@ export const InputBar = ({
   onLeftChange,
   onRightChange,
   onDelete
-}) => (
-  <FlexContainer>
-    <Input
-      placeholder="key"
-      value={leftVal}
-      onChange={e => onLeftChange(e.target.value)}
-    />
-    <Input
-      placeholder="value"
-      value={rightVal}
-      onChange={e => onRightChange(e.target.value)}
-    />
-    <button onClick={onDelete}>DELETE</button>
-  </FlexContainer>
-);
+}) => {
+  console.log(leftVal, rightVal);
+  return (
+    <FlexContainer>
+      <Input
+        placeholder="key"
+        value={leftVal}
+        onChange={e => onLeftChange(e.target.value)}
+        defaultValue={leftVal}
+      />
+      <Input
+        placeholder="value"
+        value={rightVal}
+        onChange={e => onRightChange(e.target.value)}
+        defaultValue={rightVal}
+      />
+      <button onClick={onDelete}>DELETE</button>
+    </FlexContainer>
+  );
+};
 
 export const AddressBar = ({ url, port, onUrl, onPort }) => (
   <FlexContainer>

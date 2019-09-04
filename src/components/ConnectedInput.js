@@ -12,6 +12,7 @@ import {
 const ConnectedInput = props => {
   const { guid, param } = props;
   const { paramName, paramValue } = param;
+  console.log(param);
 
   const editName = newName => props.onNameChange({ guid, newName });
   const editValue = newValue => props.onValueChange({ guid, newValue });
@@ -38,8 +39,8 @@ ConnectedInput.propTypes = {
   onValueChange: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  param: guid => getParam(state, guid)
+const mapStateToProps = (state, ownProps) => ({
+  param: getParam(state, ownProps.guid)
 });
 
 const mapDispatchToProps = {
