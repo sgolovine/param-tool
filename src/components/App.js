@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import {
   getBaseURL,
@@ -12,26 +12,33 @@ import {
   editParamValue
 } from "../store/module";
 import { Container } from "./Styled";
-import { AddressBar } from "./Components";
-import ConnectedInput from "./ConnectedInput";
+import AddressBar from "./AddressBar";
+import ParamaterInput from "./ParamaterInput";
+import UrlDisplay from "./UrlDisplay";
 
 function App(props) {
-  const [url, setUrl] = useState("");
-  const [port, setPort] = useState("");
-
   const renderParams = () => {
-    console.log(props, props.params);
     const { params } = props;
     const paramKeys = Object.keys(params) || [];
     if (paramKeys.length === 0) return <p>No Params Yet</p>;
     return paramKeys.map(key => {
-      return <ConnectedInput guid={key} />;
+      return <ParamaterInput guid={key} />;
     });
   };
 
   return (
     <Container>
-      <AddressBar url={url} port={port} onUrl={setUrl} onPort={setPort} />
+      <UrlDisplay
+        baseUrl={props.baseURL}
+        port={props.port}
+        params={props.params}
+      />
+      <AddressBar
+        url={props.baseURL}
+        port={props.port}
+        onUrl={props.setBaseUrl}
+        onPort={props.setPort}
+      />
       {renderParams()}
       <button onClick={props.addParam}>Add Field</button>
     </Container>

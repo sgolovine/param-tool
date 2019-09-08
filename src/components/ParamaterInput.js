@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { InputBar } from "./Components";
 import { connect } from "react-redux";
+import { FlexContainer, Input } from "./Styled";
 import {
   getParam,
   editParamName,
@@ -9,10 +9,36 @@ import {
   removeParam
 } from "../store/module";
 
-const ConnectedInput = props => {
+const InputBar = ({
+  leftVal,
+  rightVal,
+  onLeftChange,
+  onRightChange,
+  onDelete
+}) => {
+  console.log(leftVal, rightVal);
+  return (
+    <FlexContainer>
+      <Input
+        placeholder="key"
+        value={leftVal}
+        onChange={e => onLeftChange(e.target.value)}
+        defaultValue={leftVal}
+      />
+      <Input
+        placeholder="value"
+        value={rightVal}
+        onChange={e => onRightChange(e.target.value)}
+        defaultValue={rightVal}
+      />
+      <button onClick={onDelete}>DELETE</button>
+    </FlexContainer>
+  );
+};
+
+const ParamaterInput = props => {
   const { guid, param } = props;
   const { paramName, paramValue } = param;
-  console.log(param);
 
   const editName = newName => props.onNameChange({ guid, newName });
   const editValue = newValue => props.onValueChange({ guid, newValue });
@@ -29,7 +55,7 @@ const ConnectedInput = props => {
   );
 };
 
-ConnectedInput.propTypes = {
+ParamaterInput.propTypes = {
   guid: PropTypes.string.isRequired,
   param: PropTypes.shape({
     paramName: PropTypes.string.isRequired,
@@ -52,4 +78,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ConnectedInput);
+)(ParamaterInput);
