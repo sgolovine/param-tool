@@ -26,7 +26,9 @@ const UrlDisplay = ({ baseUrl, port, params }) => {
   });
   return (
     <>
-      <Link href={url}>NAVIGATE</Link>
+      <Link href={url} target="_blank">
+        NAVIGATE
+      </Link>
       <br />
       <textfield>{url}</textfield>
     </>
