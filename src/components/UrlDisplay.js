@@ -17,11 +17,10 @@ function parseParams(params) {
   return parsedParams;
 }
 
-const UrlDisplay = ({ baseUrl, port, params }) => {
+const UrlDisplay = ({ baseUrl, params }) => {
   const parsedParams = parseParams(params);
-  const base = port ? `${baseUrl}:${port}` : baseUrl;
   console.log(Object.keys(parsedParams).length);
-  const url = buildURL(base, {
+  const url = buildURL(baseUrl, {
     ...(Object.keys(parsedParams).length && { queryParams: parsedParams })
   });
   return (

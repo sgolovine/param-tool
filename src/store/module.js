@@ -3,7 +3,6 @@ import uuid from "uuid/v1";
 
 export const initialState = {
   baseURL: "",
-  port: "",
   params: {}
 };
 
@@ -11,13 +10,6 @@ export const setBaseUrl = url => {
   return {
     type: "SET_BASE_URL",
     payload: url
-  };
-};
-
-export const setPort = port => {
-  return {
-    type: "SET_PORT",
-    payload: port
   };
 };
 
@@ -60,11 +52,6 @@ export function reducer(state = initialState, action = {}) {
       return {
         ...state,
         baseURL: action.payload
-      };
-    case "SET_PORT":
-      return {
-        ...state,
-        port: action.payload
       };
     case "SET_PARAM":
       return {
@@ -111,6 +98,5 @@ export function reducer(state = initialState, action = {}) {
 }
 
 export const getBaseURL = state => state.baseURL;
-export const getPort = state => state.port;
 export const getParams = state => state.params;
 export const getParam = (state, guid) => state.params[guid];

@@ -2,10 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   getBaseURL,
-  getPort,
   getParams,
   setBaseUrl,
-  setPort,
   addParam,
   removeParam,
   editParamName,
@@ -28,17 +26,8 @@ function App(props) {
 
   return (
     <Container>
-      <UrlDisplay
-        baseUrl={props.baseURL}
-        port={props.port}
-        params={props.params}
-      />
-      <AddressBar
-        url={props.baseURL}
-        port={props.port}
-        onUrl={props.setBaseUrl}
-        onPort={props.setPort}
-      />
+      <UrlDisplay baseUrl={props.baseURL} params={props.params} />
+      <AddressBar url={props.baseURL} onUrl={props.setBaseUrl} />
       {renderParams()}
       <button onClick={props.addParam}>Add Field</button>
     </Container>
@@ -47,13 +36,11 @@ function App(props) {
 
 const mapStateToProps = state => ({
   baseURL: getBaseURL(state),
-  port: getPort(state),
   params: getParams(state)
 });
 
 const mapDispatchToProps = {
   setBaseUrl,
-  setPort,
   addParam,
   removeParam,
   editParamName,
